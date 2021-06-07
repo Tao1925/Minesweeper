@@ -13,10 +13,14 @@ public class GridButtons extends JPanel {
     public static int[][] mineMap;
 
     public static int X,Y;
+    public static int mineNum;
+    public static int mineFlag = 0;
+
 
     public GridButtons(int x,int y){
         X = x;
         Y = y;
+        mineNum = x * y / 8;
         setMine(x ,y);
         init(x, y);
         setName();
@@ -65,7 +69,13 @@ public class GridButtons extends JPanel {
     void allEvents(){
         PressEvent pressEvent = new PressEvent();
         for (JButton cur_button:buttons){
-            cur_button.addActionListener(pressEvent);
+            cur_button.addMouseListener(pressEvent);
+        }
+    }
+
+    public static void mineClicked(){
+        for (JButton cur_button:buttons){
+
         }
     }
 }

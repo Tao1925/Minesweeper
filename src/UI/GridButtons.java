@@ -14,13 +14,16 @@ public class GridButtons extends JPanel {
 
     public static int X,Y;
     public static int mineNum;
-    public static int mineFlag = 0;
+    public static int mineFlag;
+    public static int openCell;
 
 
     public GridButtons(int x,int y){
         X = x;
         Y = y;
         mineNum = x * y / 8;
+        mineFlag = 0;
+        openCell = 0;
         setMine(x ,y);
         init(x, y);
         setName();
@@ -32,7 +35,7 @@ public class GridButtons extends JPanel {
         this.setLayout(new GridLayout(x,y));
         for (int i = 0; i < x * y; i++){
             JButton temp_button = new JButton();
-            temp_button.setPreferredSize(new Dimension(50,50));
+            temp_button.setPreferredSize(new Dimension(MainUI.cellSize,MainUI.cellSize));
             buttons.add(temp_button);
             this.add(temp_button);
         }
@@ -41,16 +44,16 @@ public class GridButtons extends JPanel {
     public void setMine(int x, int y){
         mineMap = new int[x][y];
         for (int i = 0; i < x; i++){
-            for (int j = 0; j< y; j++){
+            for (int j = 0; j < y; j++){
                 mineMap[i][j] = 0;
             }
         }
         Random random = new Random();
-        for (int i = 0; i < (x * y) / 8; i++){
+        for (int i = 0; i < mineNum; i++){
             int rand = random.nextInt(x * y);
             // System.out.println(rand);
             int cur_x = rand / y;
-            int cur_y = rand - (cur_x * y);
+            int cur_y = rand % y;
             if (mineMap[cur_x][cur_y] == 1){
                 i--;
             }else {
